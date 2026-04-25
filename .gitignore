@@ -1,0 +1,31 @@
+*.iml
+.gradle
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+# Keystore - NEVER commit these
+*.jks
+*.keystore
+keystore.properties
+
+# Android
+*.apk
+*.aab
+*.ap_
+
+# Kotlin
+*.class
+
+# Generated
+/app/build/
+
+# IDE
+*.swp
+*.swo
+*~

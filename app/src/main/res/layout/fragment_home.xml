@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/bg_light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="88dp">
+
+        <!-- Header bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="56dp"
+            android:paddingBottom="8dp"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="文件方领"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/grey_900"
+                    android:letterSpacing="0.02" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="整洁，从这里开始"
+                    android:textSize="13sp"
+                    android:textColor="@color/grey_500"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <!-- Permission mode badge -->
+            <TextView
+                android:id="@+id/tvPermissionMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="普通模式"
+                android:textSize="11sp"
+                android:textColor="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:background="@drawable/bg_badge_rounded"
+                android:backgroundTint="@color/badge_normal" />
+        </LinearLayout>
+
+        <!-- Storage ring card -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="8dp"
+            style="@style/Card.FileLeader"
+            app:cardBackgroundColor="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center_vertical">
+
+                <!-- Ring progress -->
+                <FrameLayout
+                    android:layout_width="120dp"
+                    android:layout_height="120dp">
+
+                    <com.fileleader.ui.widget.RingProgressView
+                        android:id="@+id/storageRing"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvStorageUsed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/grey_900" />
+
+                        <TextView
+                            android:id="@+id/tvStorageTotal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="/ —"
+                            android:textSize="10sp"
+                            android:textColor="@color/grey_500" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- Storage text -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="存储空间"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/grey_900" />
+
+                    <TextView
+                        android:id="@+id/tvStorageFree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="剩余 —"
+                        android:textSize="13sp"
+                        android:textColor="@color/green_600"
+                        android:layout_marginTop="4dp" />
+
+                    <!-- Scan button -->
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnScan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="开始扫描"
+                        android:textSize="14sp"
+                        android:layout_marginTop="12dp"
+                        style="@style/Button.FileLeader"
+                        app:cornerRadius="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Scan progress -->
+        <LinearLayout
+            android:id="@+id/scanProgressLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="12dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
+
+                <TextView
+                    android:id="@+id/tvScanPhase"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="扫描中…"
+                    android:textSize="13sp"
+                    android:textColor="@color/grey_700" />
+
+                <TextView
+                    android:id="@+id/tvScanDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="11sp"
+                    android:textColor="@color/grey_500"
+                    android:maxWidth="160dp"
+                    android:ellipsize="start"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/scanProgressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:trackColor="@color/green_100"
+                app:indicatorColor="@color/green_500"
+                app:trackCornerRadius="4dp" />
+        </LinearLayout>
+
+        <!-- Feature cards grid -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="功能"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@color/grey_700"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:useDefaultMargins="false">
+
+            <!-- Junk card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardJunk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_margin="6dp"
+                android:clickable="true"
+                android:focusable="true"
+                style="@style/Card.FileLeader"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="🗑"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_icon_circle"
+                        android:backgroundTint="@color/orange_100" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="垃圾清理"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/grey_900"
+                        android:layout_marginTop="10dp" />
+
+                    <TextView
+                        android:id="@+id/tvJunkSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="待扫描"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/orange_500"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/tvJunkCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textSize="11sp"
+                        android:textColor="@color/grey_500" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Duplicate card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardDuplicate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_margin="6dp"
+                android:clickable="true"
+                android:focusable="true"
+                style="@style/Card.FileLeader"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="📋"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_icon_circle"
+                        android:backgroundTint="@color/teal_100" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="重复文件"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/grey_900"
+                        android:layout_marginTop="10dp" />
+
+                    <TextView
+                        android:id="@+id/tvDuplicateSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="待扫描"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/teal_400"
+                        android:layout_marginTop="4dp" />
+
+                    <TextView
+                        android:id="@+id/tvDuplicateCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="—"
+                        android:textSize="11sp"
+                        android:textColor="@color/grey_500" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Organize card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardOrganize"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_margin="6dp"
+                android:clickable="true"
+                android:focusable="true"
+                style="@style/Card.FileLeader"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="📁"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_icon_circle"
+                        android:backgroundTint="@color/green_100" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="文件整理"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/grey_900"
+                        android:layout_marginTop="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="按类型归类"
+                        android:textSize="11sp"
+                        android:textColor="@color/grey_500"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Analyze card -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAnalyze"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:layout_margin="6dp"
+                android:clickable="true"
+                android:focusable="true"
+                style="@style/Card.FileLeader"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="📊"
+                        android:textSize="22sp"
+                        android:gravity="center"
+                        android:background="@drawable/bg_icon_circle"
+                        android:backgroundTint="@color/red_100" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="存储分析"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/grey_900"
+                        android:layout_marginTop="10dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="可视化占用"
+                        android:textSize="11sp"
+                        android:textColor="@color/grey_500"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </GridLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

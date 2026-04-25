@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.FileLeader" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Primary green palette -->
+        <item name="colorPrimary">@color/green_500</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/green_100</item>
+        <item name="colorOnPrimaryContainer">@color/green_900</item>
+
+        <item name="colorSecondary">@color/teal_400</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/teal_100</item>
+        <item name="colorOnSecondaryContainer">@color/teal_900</item>
+
+        <item name="colorTertiary">@color/green_300</item>
+
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/grey_900</item>
+        <item name="colorSurfaceVariant">@color/green_50</item>
+        <item name="colorBackground">@color/bg_light</item>
+        <item name="colorOnBackground">@color/grey_900</item>
+        <item name="colorError">@color/red_500</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Shape -->
+        <item name="shapeAppearanceSmallComponent">@style/ShapeSmall</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeMedium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeLarge</item>
+    </style>
+
+    <style name="ShapeSmall" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+    <style name="ShapeMedium" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+    <style name="ShapeLarge" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+    <!-- Toolbar -->
+    <style name="Toolbar.FileLeader" parent="Widget.Material3.Toolbar">
+        <item name="titleTextColor">@color/grey_900</item>
+        <item name="navigationIconTint">@color/grey_700</item>
+    </style>
+
+    <!-- Card -->
+    <style name="Card.FileLeader" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
+
+    <!-- Chip -->
+    <style name="Chip.Permission" parent="Widget.Material3.Chip.Suggestion">
+        <item name="android:textSize">11sp</item>
+        <item name="chipMinHeight">24dp</item>
+    </style>
+
+    <!-- Button filled green -->
+    <style name="Button.FileLeader" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/green_500</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <!-- Bottom navigation -->
+    <style name="BottomNav.FileLeader" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemIconTint">@color/bottom_nav_colors</item>
+        <item name="itemTextColor">@color/bottom_nav_colors</item>
+        <item name="itemActiveIndicatorColor">@color/green_100</item>
+    </style>
+</resources>

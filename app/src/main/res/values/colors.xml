@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Green palette (primary) -->
+    <color name="green_50">#F1F8E9</color>
+    <color name="green_100">#DCEDC8</color>
+    <color name="green_200">#C5E1A5</color>
+    <color name="green_300">#AED581</color>
+    <color name="green_400">#9CCC65</color>
+    <color name="green_500">#4CAF50</color>
+    <color name="green_600">#43A047</color>
+    <color name="green_700">#388E3C</color>
+    <color name="green_800">#2E7D32</color>
+    <color name="green_900">#1B5E20</color>
+
+    <!-- Teal (secondary) -->
+    <color name="teal_100">#B2DFDB</color>
+    <color name="teal_400">#26A69A</color>
+    <color name="teal_900">#004D40</color>
+
+    <!-- Neutrals -->
+    <color name="white">#FFFFFF</color>
+    <color name="bg_light">#F8FBF8</color>
+    <color name="grey_50">#FAFAFA</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_500">#9E9E9E</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_900">#212121</color>
+
+    <!-- Error -->
+    <color name="red_500">#F44336</color>
+    <color name="red_100">#FFCDD2</color>
+
+    <!-- Warning -->
+    <color name="orange_500">#FF9800</color>
+    <color name="orange_100">#FFE0B2</color>
+
+    <!-- Permission badge colors -->
+    <color name="badge_root">#E53935</color>
+    <color name="badge_adb">#FB8C00</color>
+    <color name="badge_normal">#43A047</color>
+
+    <!-- Storage category colors -->
+    <color name="cat_image">#66BB6A</color>
+    <color name="cat_video">#42A5F5</color>
+    <color name="cat_audio">#AB47BC</color>
+    <color name="cat_doc">#FFA726</color>
+    <color name="cat_apk">#EF5350</color>
+    <color name="cat_archive">#26C6DA</color>
+    <color name="cat_other">#BDBDBD</color>
+
+    <!-- Keep badge -->
+    <color name="keep_badge_bg">#E8F5E9</color>
+    <color name="keep_badge_text">#388E3C</color>
+</resources>

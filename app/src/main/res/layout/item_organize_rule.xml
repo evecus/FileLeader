@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="14dp"
+    android:gravity="center_vertical"
+    android:background="@color/white"
+    android:layout_marginTop="2dp">
+
+    <TextView
+        android:id="@+id/tvRuleEmoji"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:background="@drawable/bg_icon_circle"
+        android:backgroundTint="@color/green_50"
+        android:layout_marginEnd="14dp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvRuleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/grey_900" />
+
+            <TextView
+                android:id="@+id/tvRuleTarget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/green_600"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvRuleInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@color/grey_500"
+            android:layout_marginTop="2dp" />
+    </LinearLayout>
+
+    <Switch
+        android:id="@+id/switchRule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:thumbTint="@color/green_500"
+        android:trackTint="@color/green_200" />
+
+</LinearLayout>

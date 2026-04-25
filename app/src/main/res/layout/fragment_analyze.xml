@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="存储分析"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            style="@style/Toolbar.FileLeader" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:paddingBottom="88dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                app:indicatorColor="@color/green_500" />
+
+            <!-- Storage overview card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                style="@style/Card.FileLeader">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="总览" android:textSize="16sp" android:textStyle="bold"
+                        android:textColor="@color/grey_900" />
+
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="horizontal" android:layout_marginTop="12dp"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:id="@+id/tvStorageUsed" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" android:text="—"
+                                android:textSize="22sp" android:textStyle="bold"
+                                android:textColor="@color/grey_900" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="已使用" android:textSize="12sp" android:textColor="@color/grey_500" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:id="@+id/tvStorageTotal" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" android:text="—"
+                                android:textSize="22sp" android:textStyle="bold"
+                                android:textColor="@color/grey_900" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="总容量" android:textSize="12sp" android:textColor="@color/grey_500" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+                            android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:id="@+id/tvUsedPercent" android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" android:text="—%"
+                                android:textSize="22sp" android:textStyle="bold"
+                                android:textColor="@color/green_600" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                android:text="使用率" android:textSize="12sp" android:textColor="@color/grey_500" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:id="@+id/storageProgressBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_marginTop="12dp"
+                        app:trackColor="@color/grey_200"
+                        app:indicatorColor="@color/green_500"
+                        app:trackCornerRadius="4dp" />
+
+                    <TextView
+                        android:id="@+id/tvStorageFree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textSize="12sp"
+                        android:textColor="@color/grey_500" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Pie chart card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
+                style="@style/Card.FileLeader">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pieChart"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp" />
+
+                    <LinearLayout
+                        android:id="@+id/categoryLayout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginStart="16dp"
+                        android:gravity="center_vertical" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Large files -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大文件 TOP 20"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/grey_700"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerLargeFiles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

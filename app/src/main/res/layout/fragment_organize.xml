@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="文件整理"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            style="@style/Toolbar.FileLeader" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:indicatorColor="@color/green_500" />
+
+        <!-- Summary row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:gravity="center_vertical"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tvPreviewSummary"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="点击「预览」扫描可整理的文件"
+                android:textSize="13sp"
+                android:textColor="@color/grey_600" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPreview"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="预览"
+                android:textSize="13sp"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                app:strokeColor="@color/green_500"
+                android:textColor="@color/green_600"
+                app:cornerRadius="18dp" />
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="@color/grey_200" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerOrganize"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingVertical="8dp"
+            android:clipToPadding="false" />
+
+        <!-- Organize progress -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="4dp"
+            android:gravity="center_vertical">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/organizeProgressBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone"
+                app:indicatorColor="@color/green_500" />
+
+            <TextView
+                android:id="@+id/tvOrganizeProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textColor="@color/grey_500"
+                android:visibility="gone"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- Bottom -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            android:background="@color/white"
+            android:elevation="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOrganize"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="执行整理"
+                android:enabled="false"
+                style="@style/Button.FileLeader"
+                app:cornerRadius="24dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

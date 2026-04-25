@@ -1,0 +1,176 @@
+name: Release Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: '版本 Tag（例如 v1.0.0）'
+        required: true
+        type: string
+      release_notes:
+        description: '更新说明'
+        required: false
+        default: '新版本发布'
+        type: string
+
+jobs:
+  build-and-release:
+    name: Build Signed Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────────
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ── 2. Validate tag format ────────────────────────────────────────────────
+      - name: Validate tag
+        run: |
+          TAG="${{ github.event.inputs.tag }}"
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "❌ Tag 格式不正确: $TAG （需要 vX.Y.Z 格式）"
+            exit 1
+          fi
+          echo "✅ Tag 验证通过: $TAG"
+
+      # ── 3. Setup JDK 17 ──────────────────────────────────────────────────────
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      # ── 4. Cache Gradle ───────────────────────────────────────────────────────
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', '**/libs.versions.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # ── 5. Extract version from tag ───────────────────────────────────────────
+      - name: Extract version info
+        id: version
+        run: |
+          TAG="${{ github.event.inputs.tag }}"
+          VERSION_NAME="${TAG#v}"
+          # Build versionCode from tag: v1.2.3 → 10203
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION_NAME"
+          VERSION_CODE=$(( MAJOR * 10000 + MINOR * 100 + PATCH ))
+          echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION_NAME ($VERSION_CODE)"
+
+      # ── 6. Patch versionName & versionCode in build.gradle.kts ───────────────
+      - name: Patch version in build.gradle.kts
+        run: |
+          sed -i "s/versionCode = [0-9]*/versionCode = ${{ steps.version.outputs.version_code }}/" app/build.gradle.kts
+          sed -i "s/versionName = \"[^\"]*\"/versionName = \"${{ steps.version.outputs.version_name }}\"/" app/build.gradle.kts
+          echo "✅ Patched app/build.gradle.kts"
+          grep "versionCode\|versionName" app/build.gradle.kts
+
+      # ── 7. Decode keystore from base64 secret ────────────────────────────────
+      - name: Decode keystore
+        run: |
+          mkdir -p ${{ github.workspace }}/build/keystore
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode \
+            > ${{ github.workspace }}/build/keystore/release.jks
+          echo "✅ Keystore decoded"
+
+      # ── 8. Make gradlew executable ────────────────────────────────────────────
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # ── 9. Build release APK ──────────────────────────────────────────────────
+      - name: Build Release APK
+        env:
+          KEYSTORE_BASE64:   ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS:         ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD:      ${{ secrets.KEY_PASSWORD }}
+        run: |
+          ./gradlew assembleRelease \
+            --no-daemon \
+            --stacktrace \
+            -Pandroid.testInstrumentationRunnerArguments.class=
+
+      # ── 10. Locate APK ────────────────────────────────────────────────────────
+      - name: Locate APK
+        id: apk
+        run: |
+          APK_PATH=$(find app/build/outputs/apk/release -name "*.apk" | head -1)
+          if [ -z "$APK_PATH" ]; then
+            echo "❌ APK not found!"
+            exit 1
+          fi
+          APK_NAME="文件方领-${{ steps.version.outputs.version_name }}-arm64.apk"
+          cp "$APK_PATH" "$APK_NAME"
+          echo "apk_path=$APK_NAME" >> $GITHUB_OUTPUT
+          echo "✅ APK: $APK_NAME ($(du -h "$APK_NAME" | cut -f1))"
+
+      # ── 11. Generate SHA256 checksum ──────────────────────────────────────────
+      - name: Generate checksum
+        run: |
+          sha256sum "${{ steps.apk.outputs.apk_path }}" > "${{ steps.apk.outputs.apk_path }}.sha256"
+          cat "${{ steps.apk.outputs.apk_path }}.sha256"
+
+      # ── 12. Create Git tag ────────────────────────────────────────────────────
+      - name: Create and push tag
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "${{ github.event.inputs.tag }}" \
+            -m "Release ${{ github.event.inputs.tag }}"
+          git push origin "${{ github.event.inputs.tag }}"
+
+      # ── 13. Create GitHub Release ─────────────────────────────────────────────
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag }}
+          name: "文件方领 ${{ github.event.inputs.tag }}"
+          body: |
+            ## 文件方领 ${{ github.event.inputs.tag }}
+
+            ${{ github.event.inputs.release_notes }}
+
+            ---
+
+            ### 📦 安装说明
+            1. 下载 `文件方领-${{ steps.version.outputs.version_name }}-arm64.apk`
+            2. 在 Android 设置中允许「安装未知来源应用」
+            3. 安装后授予存储权限
+
+            ### ⚙️ 版本信息
+            - **版本号**: ${{ steps.version.outputs.version_name }}
+            - **构建号**: ${{ steps.version.outputs.version_code }}
+            - **架构**: arm64-v8a
+            - **最低 Android**: 8.0 (API 26)
+            - **构建时间**: ${{ github.run_started_at }}
+            - **提交**: ${{ github.sha }}
+
+            ### 🔐 文件校验
+            请核对 `.sha256` 文件确认下载完整性。
+          files: |
+            ${{ steps.apk.outputs.apk_path }}
+            ${{ steps.apk.outputs.apk_path }}.sha256
+          draft: false
+          prerelease: ${{ contains(github.event.inputs.tag, '-beta') || contains(github.event.inputs.tag, '-alpha') }}
+          generate_release_notes: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── 14. Upload APK as workflow artifact (backup) ──────────────────────────
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk-${{ steps.version.outputs.version_name }}
+          path: |
+            ${{ steps.apk.outputs.apk_path }}
+            ${{ steps.apk.outputs.apk_path }}.sha256
+          retention-days: 30

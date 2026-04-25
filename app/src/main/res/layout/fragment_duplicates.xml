@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="重复文件"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            style="@style/Toolbar.FileLeader" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:trackColor="@color/teal_100"
+            app:indicatorColor="@color/teal_400" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/cleanProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:trackColor="@color/red_100"
+            app:indicatorColor="@color/red_500" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerDuplicates"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingVertical="8dp"
+            android:clipToPadding="false" />
+
+        <LinearLayout
+            android:id="@+id/emptyView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="🎉" android:textSize="48sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="没有重复文件" android:textSize="16sp"
+                android:textColor="@color/grey_500" android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+        <!-- Bottom bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:elevation="8dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSmartSelect"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="智能全选"
+                android:textSize="13sp"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                app:strokeColor="@color/teal_400"
+                android:textColor="@color/teal_400"
+                app:cornerRadius="20dp" />
+
+            <TextView
+                android:id="@+id/tvSelectedInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="11sp"
+                android:textColor="@color/grey_500"
+                android:gravity="center"
+                android:paddingHorizontal="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnClean"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:text="清理选中"
+                android:textSize="13sp"
+                android:enabled="false"
+                style="@style/Button.FileLeader"
+                app:cornerRadius="20dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

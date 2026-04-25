@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.fileleader.ui.home.HomeFragment"
+        android:label="主页">
+        <action
+            android:id="@+id/action_home_to_clean"
+            app:destination="@id/cleanFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_home_to_duplicates"
+            app:destination="@id/duplicatesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_home_to_organize"
+            app:destination="@id/organizeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_home_to_analyze"
+            app:destination="@id/analyzeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/cleanFragment"
+        android:name="com.fileleader.ui.clean.CleanFragment"
+        android:label="垃圾清理" />
+
+    <fragment
+        android:id="@+id/duplicatesFragment"
+        android:name="com.fileleader.ui.duplicates.DuplicatesFragment"
+        android:label="重复文件" />
+
+    <fragment
+        android:id="@+id/organizeFragment"
+        android:name="com.fileleader.ui.organize.OrganizeFragment"
+        android:label="文件整理" />
+
+    <fragment
+        android:id="@+id/analyzeFragment"
+        android:name="com.fileleader.ui.analyze.AnalyzeFragment"
+        android:label="存储分析" />
+
+</navigation>

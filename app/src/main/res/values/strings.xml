@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">文件方领</string>
+
+    <!-- Bottom nav -->
+    <string name="nav_home">主页</string>
+    <string name="nav_clean">清理</string>
+    <string name="nav_duplicates">重复</string>
+    <string name="nav_organize">整理</string>
+    <string name="nav_analyze">分析</string>
+
+    <!-- Home -->
+    <string name="start_scan">开始扫描</string>
+    <string name="scanning">扫描中…</string>
+    <string name="junk_files">垃圾文件</string>
+    <string name="duplicate_files">重复文件</string>
+    <string name="file_organize">文件整理</string>
+    <string name="storage_analyze">存储分析</string>
+    <string name="storage_used">已用</string>
+    <string name="storage_free">剩余</string>
+
+    <!-- Clean -->
+    <string name="clean_title">清理垃圾</string>
+    <string name="select_all">全选</string>
+    <string name="deselect_all">取消全选</string>
+    <string name="clean_selected">清理选中</string>
+    <string name="no_junk">太干净了！没有发现垃圾文件。</string>
+
+    <!-- Duplicates -->
+    <string name="duplicates_title">重复文件</string>
+    <string name="smart_select">智能全选</string>
+    <string name="keep_badge">保留</string>
+    <string name="no_duplicates">没有发现重复文件。</string>
+
+    <!-- Organize -->
+    <string name="organize_title">文件整理</string>
+    <string name="preview_btn">预览整理</string>
+    <string name="execute_organize">执行整理</string>
+    <string name="no_organize">没有需要整理的文件。</string>
+
+    <!-- Analyze -->
+    <string name="analyze_title">存储分析</string>
+    <string name="large_files">大文件</string>
+    <string name="by_category">按类型</string>
+
+    <!-- Permission -->
+    <string name="mode_root">Root 模式</string>
+    <string name="mode_adb">ADB 模式</string>
+    <string name="mode_normal">普通模式</string>
+
+    <!-- Errors -->
+    <string name="error_no_permission">存储权限不足，请先授权。</string>
+    <string name="error_scan_failed">扫描失败，请重试。</string>
+</resources>
