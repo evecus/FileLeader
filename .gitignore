@@ -29,3 +29,6 @@ keystore.properties
 *.swp
 *.swo
 *~
+
+# Gradle wrapper jar SHOULD be committed
+!gradle/wrapper/gradle-wrapper.jar
