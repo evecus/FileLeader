@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Declare Material library attrs that AAPT may fail to resolve from AAR at link time -->
+    <attr name="itemActiveIndicatorColor" format="color|reference" />
+</resources>
