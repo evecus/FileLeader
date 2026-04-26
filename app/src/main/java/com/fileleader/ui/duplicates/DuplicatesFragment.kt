@@ -194,7 +194,7 @@ class DuplicatesFragment : Fragment() {
 }
 
 // ===== Adapter =====
-private sealed class DupItem {
+internal sealed class DupItem {
     data class GroupHeader(val group: DuplicateGroup, val selected: Int) : DupItem()
     data class FileItem(val file: DuplicateFile, val isSelected: Boolean) : DupItem()
 }
