@@ -70,7 +70,7 @@ class JunkGroupAdapter(
         private val cbGroup: CheckBox  = view.findViewById(R.id.cbGroup)
         private val tvExpand: TextView = view.findViewById(R.id.tvExpand)
 
-        fun bind(header: JunkListItem.Header) {
+        internal fun bind(header: JunkListItem.Header) {
             tvEmoji.text = header.type.emoji
             tvType.text  = header.type.label
             tvInfo.text  = "${header.count} 项 · ${FileUtils.formatSize(header.totalSize)}"
