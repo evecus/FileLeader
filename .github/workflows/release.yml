@@ -82,8 +82,7 @@ jobs:
             > ${{ github.workspace }}/build/keystore/release.jks
           echo "✅ Keystore decoded"
 
-
-
+      # ── 8. Grant execute permission for gradlew ───────────────────────────────
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
