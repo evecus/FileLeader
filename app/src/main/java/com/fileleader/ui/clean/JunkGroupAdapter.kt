@@ -11,7 +11,7 @@ import com.fileleader.data.model.JunkFile
 import com.fileleader.data.model.JunkType
 import com.fileleader.util.FileUtils
 
-private sealed class JunkListItem {
+internal sealed class JunkListItem {
     data class Header(val type: JunkType, val count: Int, val totalSize: Long, val allChecked: Boolean) : JunkListItem()
     data class Item(val file: JunkFile) : JunkListItem()
 }
