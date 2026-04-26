@@ -244,7 +244,7 @@ class DuplicateGroupAdapter(
         val cbGroup: CheckBox  = v.findViewById(R.id.cbGroup)
         val tvExpand: TextView = v.findViewById(R.id.tvExpand)
 
-        fun bind(item: DupItem.GroupHeader) {
+        internal fun bind(item: DupItem.GroupHeader) {
             val g = item.group
             tvCount.text  = "${g.files.size} 个重复"
             tvSize.text   = FileUtils.formatSize(g.size)
@@ -273,7 +273,7 @@ class DuplicateGroupAdapter(
 
         val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm", Locale.getDefault())
 
-        fun bind(item: DupItem.FileItem) {
+        internal fun bind(item: DupItem.FileItem) {
             val f = item.file
             tvName.text = f.name
             tvPath.text = f.path.substringBeforeLast('/')
