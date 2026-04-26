@@ -74,13 +74,22 @@ jobs:
           echo "✅ Patched app/build.gradle.kts"
           grep "versionCode\|versionName" app/build.gradle.kts
 
-      # ── 7. Decode keystore from base64 secret ────────────────────────────────
-      - name: Decode keystore
+      # ── 7. Generate self-signed keystore ─────────────────────────────────────
+      - name: Generate keystore
         run: |
           mkdir -p ${{ github.workspace }}/build/keystore
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode \
-            > ${{ github.workspace }}/build/keystore/release.jks
-          echo "✅ Keystore decoded"
+          keytool -genkeypair \
+            -alias fileleader \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storetype JKS \
+            -keystore ${{ github.workspace }}/build/keystore/release.jks \
+            -storepass fileleader123 \
+            -keypass fileleader123 \
+            -dname "CN=FileLeader, OU=Dev, O=FileLeader, L=Beijing, ST=Beijing, C=CN" \
+            -noprompt
+          echo "✅ Keystore generated"
 
       # ── 8. Grant execute permission for gradlew ───────────────────────────────
       - name: Grant execute permission for gradlew
@@ -89,10 +98,9 @@ jobs:
       # ── 9. Build release APK ──────────────────────────────────────────────────
       - name: Build Release APK
         env:
-          KEYSTORE_BASE64:   ${{ secrets.KEYSTORE_BASE64 }}
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS:         ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD:      ${{ secrets.KEY_PASSWORD }}
+          KEYSTORE_PASSWORD: fileleader123
+          KEY_ALIAS:         fileleader
+          KEY_PASSWORD:      fileleader123
         run: |
           ./gradlew assembleRelease \
             --no-daemon \
