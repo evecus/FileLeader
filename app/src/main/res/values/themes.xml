@@ -17,7 +17,7 @@
         <item name="colorSurface">@color/white</item>
         <item name="colorOnSurface">@color/grey_900</item>
         <item name="colorSurfaceVariant">@color/green_50</item>
-        <item name="colorBackground">@color/bg_light</item>
+        <item name="android:colorBackground">@color/bg_light</item>
         <item name="colorOnBackground">@color/grey_900</item>
         <item name="colorError">@color/red_500</item>
 
@@ -29,6 +29,7 @@
         <item name="shapeAppearanceSmallComponent">@style/ShapeSmall</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeMedium</item>
         <item name="shapeAppearanceLargeComponent">@style/ShapeLarge</item>
+        <item name="itemActiveIndicatorColor">@color/green_100</item>
     </style>
 
     <style name="ShapeSmall" parent="">
@@ -68,12 +69,5 @@
         <item name="backgroundTint">@color/green_500</item>
         <item name="android:textColor">@color/white</item>
         <item name="cornerRadius">12dp</item>
-    </style>
-
-    <!-- Bottom navigation -->
-    <style name="BottomNav.FileLeader" parent="Widget.Material3.BottomNavigationView">
-        <item name="itemIconTint">@color/bottom_nav_colors</item>
-        <item name="itemTextColor">@color/bottom_nav_colors</item>
-        <item name="itemActiveIndicatorColor">@color/green_100</item>
     </style>
 </resources>
